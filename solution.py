@@ -1,3 +1,5 @@
+from collections import defaultdict
+from collections import Counter
 assignments = []
 
 
@@ -142,6 +144,25 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
+    values = values.copy()
+    for unit in unitlist:
+        #         print('------------------')
+        naked_twins_dict = defaultdict(lambda: 0)
+        for box in unit:
+            value = values[box]
+            if len(value) == 2:
+                naked_twins_dict[value] += 1
+
+        # remove naked twins from unit
+        for naked_twin in naked_twins_dict:
+            if naked_twins_dict[naked_twin] != 2:
+                continue
+            for char in naked_twin:
+                for box in unit:
+                    value = values[box]
+                    if len(value) > 2 and (char in value):
+                        values[box] = value.replace(char, '')
+    return values
 
 
 def solve(grid):
