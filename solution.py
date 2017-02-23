@@ -148,17 +148,15 @@ def naked_twins(values):
     """
 
     # Find all instances of naked twins
-    # Eliminate the naked twins as possibilities for their peers
     values = values.copy()
     for unit in unitlist:
-        #         print('------------------')
         naked_twins_dict = defaultdict(lambda: 0)
         for box in unit:
             value = values[box]
             if len(value) == 2:
                 naked_twins_dict[value] += 1
 
-        # remove naked twins from unit
+        # remove naked twins from that unit
         for naked_twin in naked_twins_dict:
             if naked_twins_dict[naked_twin] != 2:
                 continue
@@ -166,6 +164,7 @@ def naked_twins(values):
                 for box in unit:
                     value = values[box]
                     if len(value) > 2 and (digit in value):
+                        # remove each digit of naked twins from other boxes
                         assign_value(values, box, value.replace(digit, ''))
     return values
 
