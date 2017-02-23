@@ -162,11 +162,11 @@ def naked_twins(values):
         for naked_twin in naked_twins_dict:
             if naked_twins_dict[naked_twin] != 2:
                 continue
-            for char in naked_twin:
+            for digit in naked_twin:
                 for box in unit:
                     value = values[box]
-                    if len(value) > 2 and (char in value):
-                        values[box] = value.replace(char, '')
+                    if len(value) > 2 and (digit in value):
+                        assign_value(values, box, value.replace(digit, ''))
     return values
 
 
